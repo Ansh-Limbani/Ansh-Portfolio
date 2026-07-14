@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ansh Limbani — Founder, Ark Infotech</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #06070f;
+    --bg-soft: #0b0d1e;
+    --glass: rgba(255,255,255,0.045);
+    --glass-hover: rgba(255,255,255,0.075);
+    --glass-border: rgba(255,255,255,0.09);
+    --violet: #8b7cff;
+    --violet-soft: #6a5cd0;
+    --cyan: #66e0e0;
+    --coral: #ff9270;
+    --text: #f1f2fb;
+    --text-dim: #9498b8;
+    --text-faint: #6468885b;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--violet); color: #06070f; }
+
+  .bg-glow{
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 45% at 20% 0%, rgba(139,124,255,0.16), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 15%, rgba(102,224,224,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255,146,112,0.06), transparent 60%);
+  }
+
+  .wrap{ max-width: 1040px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 2; }
+
+  /* ---------- nav ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(6,7,15,0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .topbar-inner{
+    max-width: 1040px; margin:0 auto; padding: 16px 28px;
+    display:flex; align-items:center; justify-content: space-between;
+  }
+  .brand{ font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.2px; }
+  .brand span{ color: var(--violet); }
+  .nav{ display:flex; gap: 28px; font-size: 13.5px; }
+  .nav a{ color: var(--text-dim); text-decoration:none; transition: color .2s; font-weight: 500; }
+  .nav a:hover{ color: var(--text); }
+  @media (max-width: 620px){ .nav{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    min-height: 92vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 80px 24px 40px;
+  }
+  #hero-canvas{
+    position: absolute; inset: 0; z-index: 0;
+    opacity: 0; transition: opacity 1.4s ease;
+  }
+  #hero-canvas.loaded{ opacity: 1; }
+
+  .hero-content{ position: relative; z-index: 2; pointer-events: none; }
+  .hero-content .cta-row{ pointer-events: auto; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap: 8px;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--cyan); background: var(--glass); border: 1px solid var(--glass-border);
+    padding: 7px 16px; border-radius: 999px; margin-bottom: 28px;
+    backdrop-filter: blur(6px);
+  }
+  .eyebrow .live-dot{ width:6px; height:6px; border-radius:50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+  .hero-title{
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: clamp(42px, 8vw, 92px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+    background: linear-gradient(180deg, #ffffff 10%, #cfd2ef 55%, #9a92e8 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.25),
+      0 2px 0 rgba(200,195,255,0.18),
+      0 3px 0 rgba(160,150,240,0.14),
+      0 4px 0 rgba(130,120,220,0.10),
+      0 14px 30px rgba(80,60,200,0.35);
+    margin-bottom: 18px;
+  }
+
+  .hero-sub{
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-dim);
+    max-width: 46ch;
+    margin: 0 auto 34px;
+  }
+  .hero-sub b{ color: var(--text); font-weight: 600; }
+
+  .cta-row{ display:flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn{
+    font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14.5px;
+    padding: 13px 26px; border-radius: 12px; cursor: pointer; border: none;
+    text-decoration: none; display: inline-flex; align-items:center; gap: 8px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--violet), var(--violet-soft));
+    color: #fff;
+    box-shadow: 0 10px 30px -8px rgba(139,124,255,0.55), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .btn-primary:hover{ box-shadow: 0 14px 38px -8px rgba(139,124,255,0.7), inset 0 1px 0 rgba(255,255,255,0.3); }
+  .btn-ghost{
+    background: var(--glass); color: var(--text); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(6px);
+  }
+  .btn-ghost:hover{ background: var(--glass-hover); }
+
+  .scroll-hint{
+    position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+    color: var(--text-faint); font-size: 12px; display:flex; flex-direction:column; align-items:center; gap:6px;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform: translate(-50%,0);} 50%{ transform: translate(-50%,6px);} }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 90px 0; position: relative; }
+  .sec-tag{
+    font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 12px;
+  }
+  .sec-title{
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 38px);
+    letter-spacing: -0.5px; margin-bottom: 40px;
+  }
+
+  /* ---------- glass card base ---------- */
+  .glass{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* ---------- about ---------- */
+  .about-layout{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 28px; align-items: stretch; }
+  @media (max-width: 760px){ .about-layout{ grid-template-columns: 1fr; } }
+  .about-main{ padding: 34px 36px; }
+  .bio{ font-size: 16px; color: var(--text-dim); max-width: 56ch; }
+  .bio .kw{ color: var(--text); font-weight: 600; }
+  .about-stats{ padding: 30px 32px; display:flex; flex-direction: column; justify-content: center; gap: 22px; }
+  .stat .num{ font-family:'Sora', sans-serif; font-size: 34px; font-weight: 800; color: var(--cyan); line-height:1; }
+  .stat .label{ font-size: 12.5px; color: var(--text-dim); margin-top: 6px; letter-spacing: 0.3px; }
+
+  /* ---------- skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .skill-card{ padding: 24px 24px; transition: transform .25s ease, background .25s ease; }
+  .skill-card:hover{ transform: translateY(-4px); background: var(--glass-hover); }
+  .skill-card .icon-badge{
+    width: 42px; height:42px; border-radius: 12px; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, rgba(139,124,255,0.25), rgba(102,224,224,0.15));
+    margin-bottom: 16px; font-size: 19px;
+  }
+  .skill-card .cat{ font-family:'Sora', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+  .level{ width: 100%; height: 5px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 8px; }
+  .level-fill{ display:block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+  .level-label{ font-size: 11.5px; color: var(--text-dim); margin-bottom: 14px; }
+  .skill-desc{ font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+  .skill-tags{ display:flex; flex-wrap:wrap; gap: 7px; }
+  .tag{
+    font-size: 12px; color: var(--text-dim); background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border); padding: 5px 11px; border-radius: 999px;
+  }
+
+  /* ---------- projects ---------- */
+  .projects{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .proj{
+    padding: 26px 26px; position: relative; overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease;
+    transform-style: preserve-3d;
+  }
+  .proj:hover{ box-shadow: 0 22px 44px -18px rgba(139,124,255,0.35); }
+  .proj-emoji{ font-size: 30px; margin-bottom: 14px; display:block; }
+  .proj-top{ display:flex; align-items:center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .proj-name{ font-family:'Sora', sans-serif; font-size: 17px; font-weight: 700; }
+  .proj-status{
+    font-size: 11px; font-weight: 600; color: var(--cyan);
+    border: 1px solid rgba(102,224,224,0.3); background: rgba(102,224,224,0.08);
+    padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .proj-status.wip{ color: var(--coral); border-color: rgba(255,146,112,0.3); background: rgba(255,146,112,0.08); }
+  .proj-desc{ color: var(--text-dim); font-size: 14px; margin-bottom: 16px; }
+  .proj-stack{ display:flex; gap: 8px; flex-wrap: wrap; }
+  .proj-stack span{
+    font-size: 11.5px; color: var(--violet); background: rgba(139,124,255,0.1);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(139,124,255,0.2);
+  }
+  .proj-link{
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
+    font-size: 13px; font-weight: 600; color: var(--cyan); text-decoration: none;
+    border-bottom: 1px solid rgba(102,224,224,0.3); padding-bottom: 2px;
+    transition: color .15s, border-color .15s;
+  }
+  .proj-link:hover{ color: #fff; border-color: #fff; }
+
+  /* ---------- contact ---------- */
+  .contact-box{
+    padding: 44px 40px; text-align: center; position: relative; overflow: hidden;
+  }
+  .contact-box::before{
+    content:''; position:absolute; inset:0; z-index:0;
+    background: radial-gradient(circle at 50% 0%, rgba(139,124,255,0.18), transparent 60%);
+  }
+  .contact-inner{ position: relative; z-index:1; }
+  .contact-title{ font-family:'Sora', sans-serif; font-weight: 700; font-size: 26px; margin-bottom: 10px; }
+  .contact-desc{ color: var(--text-dim); font-size: 14.5px; margin-bottom: 26px; }
+  .mail-pill{
+    display:inline-flex; align-items:center; gap: 12px;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+    padding: 12px 20px; border-radius: 999px; font-size: 14.5px;
+  }
+  .mail-link{ color: var(--text); text-decoration: none; font-weight: 600; }
+  .copy-btn{
+    background: var(--violet); color: #fff; border: none; font-family: inherit; font-weight: 600;
+    font-size: 11.5px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .copy-btn:hover{ background: var(--violet-soft); }
+  .status-pill{
+    margin-top: 22px; display:inline-flex; align-items:center; gap:8px;
+    font-size: 13px; color: var(--cyan);
+  }
+  .status-pill .dot{ width:7px; height:7px; border-radius:50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+  footer{ padding: 34px 0 50px; color: var(--text-faint); font-size: 12.5px; }
+  footer .row{ display:flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  :focus-visible{ outline: 2px solid var(--violet); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .scroll-hint{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">ANSH<span>.</span>LIMBANI</div>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content wrap" style="max-width:760px;">
+    <div class="eyebrow"><span class="live-dot"></span> Founder · Ark Infotech</div>
+    <h1 class="hero-title">Ansh Limbani</h1>
+    <p class="hero-sub">A <b>17-year-old builder</b> chasing a big dream — coding web, apps &amp; games, and exploring what <b>AI</b> can do next.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ scroll</div>
+</div>
+
+<div class="wrap">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="sec-tag">Who I Am</div>
+    <h2 class="sec-title">About Me</h2>
+    <div class="about-layout">
+      <div class="glass about-main">
+        <p class="bio">
+          I'm <span class="kw">Ansh Limbani</span>, founder of <span class="kw">Ark Infotech</span> and a 17-year-old developer who'd rather build than wait. I write code for the web, build apps, and ship small games in my spare time — learning by making, not just studying. Right now I'm going deep on <span class="kw">AI</span>, figuring out how to fold it into everything I build. Big dream, steady climb.
+        </p>
+      </div>
+      <div class="glass about-stats">
+        <div class="stat"><div class="num">17</div><div class="label">Years old, building anyway</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">Company founded — Ark Infotech</div></div>
+        <div class="stat"><div class="num">2+</div><div class="label">Games shipped for practice &amp; fun</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="sec-tag">What I Work With</div>
+    <h2 class="sec-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="glass skill-card">
+        <div class="icon-badge">🌐</div>
+        <div class="cat">Web Development</div>
+        <div class="level"><span class="level-fill" style="width:78%"></span></div>
+        <div class="level-label">Comfortable building end-to-end</div>
+        <p class="skill-desc">Building responsive sites and interfaces by hand — structuring pages, styling with CSS, and wiring up interactivity with JavaScript.</p>
+        <div class="skill-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Responsive Design</span></div>
+      </div>
+      <div class="glass skill-card">
+        <div class="icon-badge">📱</div>
+        <div class="cat">App Development</div>
+        <div class="level"><span class="level-fill" style="width:60%"></span></div>
+        <div class="level-label">Growing steadily</div>
+        <p class="skill-desc">Designing and building app interfaces, learning cross-platform patterns to take ideas from screen to working product.</p>
+        <div class="skill-tags"><span class="tag">Mobile Apps</span><span class="tag">UI Building</span><span class="tag">Cross-platform</span></div>
+      </div>
+      <div class="glass skill-card">
+        <div class="icon-badge">🎮</div>
+        <div class="cat">Game Development</div>
+        <div class="level"><span class="level-fill" style="width:72%"></span></div>
+        <div class="level-label">Shipped multiple games</div>
+        <p class="skill-desc">Writing game logic from scratch — movement, physics, collisions, enemy behavior, and level design, proven across two shipped games.</p>
+        <div class="skill-tags"><span class="tag">Game Logic</span><span class="tag">Physics &amp; Controls</span><span class="tag">Level Design</span></div>
+      </div>
+      <div class="glass skill-card">
+        <div class="icon-badge">✨</div>
+        <div class="cat">AI &amp; Emerging Tech</div>
+        <div class="level"><span class="level-fill" style="width:45%"></span></div>
+        <div class="level-label">Actively learning</div>
+        <p class="skill-desc">Studying how AI models work and experimenting with prompt design, with the goal of folding AI into future products.</p>
+        <div class="skill-tags"><span class="tag">AI Fundamentals</span><span class="tag">Prompt Engineering</span><span class="tag">Exploring ML</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="sec-tag">Things I've Built</div>
+    <h2 class="sec-title">Projects</h2>
+    <div class="projects">
+      <div class="glass proj" data-tilt>
+        <span class="proj-emoji">🏎️</span>
+        <div class="proj-top"><span class="proj-name">Car Racing Game</span><span class="proj-status">shipped</span></div>
+        <p class="proj-desc">Arcade-style racing game built from scratch — track design, vehicle controls, and collision handling all coded by hand.</p>
+        <div class="proj-stack"><span>Game Dev</span><span>Physics</span><span>UI/UX</span></div>
+        <a href="mailto:arkinfotech9@gmail.com?subject=Car%20Racing%20Game%20—%20I'd%20love%20to%20see%20it" class="proj-link">Ask for a demo ↗</a>
+      </div>
+      <div class="glass proj" data-tilt>
+        <span class="proj-emoji">🧟</span>
+        <div class="proj-top"><span class="proj-name">Zombie Survival Game</span><span class="proj-status">shipped</span></div>
+        <p class="proj-desc">Survival-style game with enemy AI behavior, wave spawning, and player progression mechanics.</p>
+        <div class="proj-stack"><span>Game Dev</span><span>Enemy AI</span><span>Game Design</span></div>
+        <a href="mailto:arkinfotech9@gmail.com?subject=Zombie%20Survival%20Game%20—%20I'd%20love%20to%20see%20it" class="proj-link">Ask for a demo ↗</a>
+      </div>
+      <div class="glass proj" data-tilt>
+        <span class="proj-emoji">🚀</span>
+        <div class="proj-top"><span class="proj-name">Ark Infotech</span><span class="proj-status wip">in progress</span></div>
+        <p class="proj-desc">My own venture — building web and app solutions while learning to run a company from the ground up at 17.</p>
+        <div class="proj-stack"><span>Web</span><span>Apps</span><span>Founder</span></div>
+        <a href="mailto:arkinfotech9@gmail.com?subject=Ark%20Infotech%20—%20Let's%20talk" class="proj-link">Get in touch ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="glass contact-box">
+      <div class="contact-inner">
+        <div class="contact-title">Let's build something.</div>
+        <div class="contact-desc">Open to opportunities, collaborations, and interesting ideas.</div>
+        <div class="mail-pill">
+          <a class="mail-link" href="mailto:arkinfotech9@gmail.com">arkinfotech9@gmail.com</a>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('arkinfotech9@gmail.com'); this.textContent='Copied ✓'; setTimeout(()=>this.textContent='Copy', 1500)">Copy</button>
+        </div>
+        <div class="status-pill"><span class="dot"></span> Open to opportunities</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>© 2026 Ansh Limbani · Ark Infotech</span>
+      <span>designed &amp; built with intent</span>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  // ---------- 3D hero model ----------
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    const hero = document.querySelector('.hero');
+    let width = hero.clientWidth, height = hero.clientHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 100);
+    camera.position.set(0, 0, 7.5);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+
+    // Ambient particle field — ties in the AI/data feel without ever covering the headline.
+    // A soft starfield of glowing points drifting slowly, plus a handful of larger nodes
+    // connected by faint lines, all kept low-opacity so text stays fully readable on top.
+    const fieldGroup = new THREE.Group();
+    scene.add(fieldGroup);
+
+    const STAR_COUNT = 220;
+    const starPositions = new Float32Array(STAR_COUNT * 3);
+    for(let i=0;i<STAR_COUNT;i++){
+      starPositions[i*3]     = (Math.random()-0.5) * 16;   // x
+      starPositions[i*3+1]   = (Math.random()-0.5) * 9;    // y
+      starPositions[i*3+2]   = (Math.random()-0.5) * 8 - 2; // z
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    const starMat = new THREE.PointsMaterial({ color: 0x9d90ff, size: 0.045, transparent: true, opacity: 0.55, sizeAttenuation: true });
+    const stars = new THREE.Points(starGeo, starMat);
+    fieldGroup.add(stars);
+
+    // A few larger glowing nodes with connecting lines, kept toward the edges of the frame
+    const NODE_COUNT = 9;
+    const nodePositions = [];
+    const nodeGeo = new THREE.SphereGeometry(0.05, 10, 10);
+    const nodeMatA = new THREE.MeshBasicMaterial({ color: 0x8b7cff, transparent: true, opacity: 0.85 });
+    const nodeMatB = new THREE.MeshBasicMaterial({ color: 0x66e0e0, transparent: true, opacity: 0.85 });
+    const nodes = [];
+    for(let i=0;i<NODE_COUNT;i++){
+      const angle = (i / NODE_COUNT) * Math.PI * 2;
+      const radiusX = 5.6 + Math.random()*1.2;
+      const radiusY = 3.0 + Math.random()*1.0;
+      const pos = new THREE.Vector3(
+        Math.cos(angle) * radiusX,
+        Math.sin(angle) * radiusY * 0.6,
+        (Math.random()-0.5) * 3 - 1
+      );
+      const node = new THREE.Mesh(nodeGeo, i % 2 === 0 ? nodeMatA : nodeMatB);
+      node.position.copy(pos);
+      node.userData.baseY = pos.y;
+      node.userData.speed = 0.2 + Math.random()*0.3;
+      node.userData.offset = Math.random()*Math.PI*2;
+      fieldGroup.add(node);
+      nodes.push(node);
+      nodePositions.push(pos);
+    }
+    // faint connecting lines between neighboring nodes
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x6a5cd0, transparent: true, opacity: 0.18 });
+    for(let i=0;i<NODE_COUNT;i++){
+      const a = nodePositions[i];
+      const b = nodePositions[(i+1) % NODE_COUNT];
+      const lineGeo = new THREE.BufferGeometry().setFromPoints([a, b]);
+      fieldGroup.add(new THREE.Line(lineGeo, lineMat));
+    }
+
+    const particles = nodes; // reuse animation loop below for gentle bobbing
+
+    const ambient = new THREE.AmbientLight(0x2a2a4a, 1.1);
+    scene.add(ambient);
+
+    let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+    });
+
+    function onResize(){
+      width = hero.clientWidth; height = hero.clientHeight;
+      camera.aspect = width/height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onResize);
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clock = new THREE.Clock();
+
+    function animate(){
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      if(!reduceMotion){
+        fieldGroup.rotation.y = t * 0.035;
+
+        targetX += (mouseX - targetX) * 0.04;
+        targetY += (mouseY - targetY) * 0.04;
+        camera.position.x = targetX * 0.6;
+        camera.position.y = -targetY * 0.35;
+        camera.lookAt(0,0,0);
+
+        particles.forEach(p => {
+          p.position.y = p.userData.baseY + Math.sin(t * p.userData.speed + p.userData.offset) * 0.25;
+        });
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    setTimeout(() => canvas.classList.add('loaded'), 200);
+  })();
+
+  // ---------- project card tilt ----------
+  (function(){
+    const cards = document.querySelectorAll('[data-tilt]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduceMotion) return;
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(700px) rotateX(0) rotateY(0) translateY(0)';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
